@@ -9,6 +9,15 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@fontsource-variable/bodoni-moda": "^5.2.7",
+    "@fontsource-variable/playfair": "^5.2.8",
+    "@fontsource-variable/playfair-display": "^5.2.8",
+    "@fontsource/aboreto": "^5.2.7",
+    "@fontsource/dancing-script": "^5.2.8",
+    "aos": "^2.3.4",
     "astro": "^5.17.1"
+  },
+  "devDependencies": {
+    "@types/aos": "^3.0.7"
   }
 }
