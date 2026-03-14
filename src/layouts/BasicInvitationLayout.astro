@@ -7,6 +7,7 @@ import '@fontsource-variable/playfair-display';
 interface Props {
 	Title: string;
  	HeroImageSrc?: string;
+	PositionFocus?: "center"| string;
 	HeroText1?: string;
 	HeroText2?: string;
 	IntroductionMessage: string;
@@ -18,6 +19,7 @@ interface Props {
 	MusicSrc?: string;
 	DateText?: string;
 	TargetDate?: string;
+	BackgroundTimerSrc?: string;
 	DirectionText1?: string;
 	DirectionText2?: string;
 	MapsLink?: string;
@@ -27,7 +29,7 @@ interface Props {
 	WhatsappMessage?: string;
 }
 
-const { Title, HeroImageSrc,  HeroText1 = '', HeroText2 = '', IntroductionMessage = '', FirstColor = '#FFFFFF', SecondColor = '#FFFFFF', ThirdColor = '#FFFFFF', MusicTextColor = '#FFFFFF', MusicSpanColor = '#FFFFFF', MusicSrc = '', DateText = '', TargetDate = "2000-01-01T00:00:00", DirectionText1 = '', DirectionText2 = '', MapsLink = '', HourText = '', ConfimationText = '', WhatsappNumber = '', WhatsappMessage = '' } = Astro.props;
+const { Title, HeroImageSrc,  HeroText1 = '', HeroText2 = '', IntroductionMessage = '', FirstColor = '#FFFFFF', SecondColor = '#FFFFFF', ThirdColor = '#FFFFFF', MusicTextColor = '#FFFFFF', MusicSpanColor = '#FFFFFF', MusicSrc = '', DateText = '', BackgroundTimerSrc = "/CloudWallpaper.jpeg", TargetDate = "2000-01-01T00:00:00", DirectionText1 = '', DirectionText2 = '', MapsLink = '', HourText = '', ConfimationText = '', WhatsappNumber = '', WhatsappMessage = '' } = Astro.props;
 const charCount = HeroText1.length;
 ---
 
@@ -131,7 +133,7 @@ const charCount = HeroText1.length;
 	</body>
 </html>
 
-<style define:vars={{ FirstColor: Astro.props.FirstColor, SecondColor: Astro.props.SecondColor, ThirdColor: Astro.props.ThirdColor, MusicTextColor: Astro.props.MusicTextColor, MusicSpanColor: Astro.props.MusicSpanColor }}>
+<style define:vars={{ PositionFocus: Astro.props.PositionFocus, FirstColor: Astro.props.FirstColor, SecondColor: Astro.props.SecondColor, ThirdColor: Astro.props.ThirdColor, MusicTextColor: Astro.props.MusicTextColor, MusicSpanColor: Astro.props.MusicSpanColor, BackgroundTimerSrc:`url(${BackgroundTimerSrc})` }}>
 	html,
 	body {
 		margin: 0;
@@ -162,7 +164,7 @@ const charCount = HeroText1.length;
 		width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: 40% top;
+        object-position: var(--PositionFocus) top;
 	}
 	
 	.HeroDarknessLayer {
@@ -256,7 +258,7 @@ const charCount = HeroText1.length;
 
 	.Timer{
   		text-align: center;
-		background-image: url(/ChatGPT\ Image\ Jul\ 6\,\ 2025\,\ 07_36_51\ PM.png) ;
+		background-image: var(--BackgroundTimerSrc);
 		background-size: cover;
 		min-height: 20vh;
 		padding: 1rem;
@@ -306,7 +308,7 @@ const charCount = HeroText1.length;
 	font-weight: lighter;
 	text-align: center;
 	color: #ffffff;
-	background-color: #fad001;
+	background-color: var(--FirstColor);
 	display: flex;
 	flex-direction: column;
 	padding-top: 40%;
@@ -343,7 +345,7 @@ const charCount = HeroText1.length;
 
 	.button_como_llegar {
 	color: #ffffff;
-	background-color: #fad001;
+	background-color: var(--ThirdColor);
 	border: 2px solid rgb(255, 255, 255);
 	border-radius: 0px;
 	padding: 18px 36px;
@@ -366,8 +368,8 @@ const charCount = HeroText1.length;
 
 	.confirmar_asistencia{
 	text-align: center;
-	color: #fad001;
-	background-color: var(--FirstColor);
+	color: var(--MusicTextColor);
+	background-color: var(--ThirdColor);
 	padding-top: 20%;
 	padding-bottom: 20%;
 	}
@@ -393,8 +395,8 @@ const charCount = HeroText1.length;
 	}
 
 	.Whatsapp_button {
-	background-color: #fad001;
-	color: #000000;
+	background-color:  var(--FirstColor);
+	color: var(--MusicTextColor);
 	border: solid 2px #ffffff;
 	border-radius: 0px;
 	padding: 18px 36px;
@@ -413,7 +415,7 @@ const charCount = HeroText1.length;
 
 	.Whatsapp_button:hover {
 	color: #ffffff;
-	background-color: #fad001;
+	background-color: var(--ThirdColor);
 	border: 2px solid rgb(255, 255, 255);
 	border-radius: 0px;
 	}
