@@ -27,7 +27,8 @@ interface Props {
 	WhatsappMessage?: string;
 }
 
-const { Title, HeroImageSrc,  HeroText1, HeroText2, IntroductionMessage, FirstColor = '#FFFFFF', SecondColor = '#FFFFFF', ThirdColor = '#FFFFFF', MusicTextColor = '#FFFFFF', MusicSpanColor = '#FFFFFF', MusicSrc = '', DateText = '', TargetDate = "2000-01-01T00:00:00", DirectionText1 = '', DirectionText2 = '', MapsLink = '', HourText = '', ConfimationText = '', WhatsappNumber = '', WhatsappMessage = '' } = Astro.props;
+const { Title, HeroImageSrc,  HeroText1 = '', HeroText2 = '', IntroductionMessage = '', FirstColor = '#FFFFFF', SecondColor = '#FFFFFF', ThirdColor = '#FFFFFF', MusicTextColor = '#FFFFFF', MusicSpanColor = '#FFFFFF', MusicSrc = '', DateText = '', TargetDate = "2000-01-01T00:00:00", DirectionText1 = '', DirectionText2 = '', MapsLink = '', HourText = '', ConfimationText = '', WhatsappNumber = '', WhatsappMessage = '' } = Astro.props;
+const charCount = HeroText1.length;
 ---
 
 
@@ -55,7 +56,7 @@ const { Title, HeroImageSrc,  HeroText1, HeroText2, IntroductionMessage, FirstCo
 
 		</div>
 		
-		<div class="HeroNameContainer">
+		<div class="HeroNameContainer" style={`--chars: ${charCount};`}>
         		<h1 class="HeroName" id="HeroText1">
             		{HeroText1}
         		</h1>
@@ -194,7 +195,6 @@ const { Title, HeroImageSrc,  HeroText1, HeroText2, IntroductionMessage, FirstCo
 
     .HeroName {
         font-family: "Dancing Script", cursive;
-        font-size: clamp(1rem, 15cqw, 8rem);
         color: white; 
         text-shadow: 2px 2px 20px rgba(0,0,0,0.5);
 		opacity: 0;
@@ -202,6 +202,8 @@ const { Title, HeroImageSrc,  HeroText1, HeroText2, IntroductionMessage, FirstCo
         animation-timeline: scroll(root);
 		animation-range: 0% 14%;
 		white-space: nowrap;
+		font-size: clamp(1rem, calc(90vw / (var(--chars) * 0.5)), 8rem);
+        line-height: 1.1;
 		
     }
 	
