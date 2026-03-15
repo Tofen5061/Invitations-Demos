@@ -22,14 +22,21 @@ interface Props {
 	BackgroundTimerSrc?: string;
 	DirectionText1?: string;
 	DirectionText2?: string;
+	DirectionBackgroundColor?: string;
 	MapsLink?: string;
 	HourText?: string;
 	ConfimationText?: string;
+	ConfirmationBackgroundColor?: string;
 	WhatsappNumber?: string;
 	WhatsappMessage?: string;
+	ConfirmationButtonBackgroundColor?: string;
+	ConfirmationHoverButtonBg?: string;
+	ConfirmationButtonTextColor?: string;
+	ConfirmationHoverButtonTextColor?: string;
+
 }
 
-const { Title, HeroImageSrc,  HeroText1 = '', HeroText2 = '', IntroductionMessage = '', FirstColor = '#FFFFFF', SecondColor = '#FFFFFF', ThirdColor = '#FFFFFF', MusicTextColor = '#FFFFFF', MusicSpanColor = '#FFFFFF', MusicSrc = '', DateText = '', BackgroundTimerSrc = "/CloudWallpaper.jpeg", TargetDate = "2000-01-01T00:00:00", DirectionText1 = '', DirectionText2 = '', MapsLink = '', HourText = '', ConfimationText = '', WhatsappNumber = '', WhatsappMessage = '' } = Astro.props;
+const { Title, HeroImageSrc,  HeroText1 = '', HeroText2 = '', IntroductionMessage = '', FirstColor = '#FFFFFF', SecondColor = '#FFFFFF', ThirdColor = '#FFFFFF', MusicTextColor = '#FFFFFF', MusicSpanColor = '#FFFFFF', MusicSrc = '', DateText = '', BackgroundTimerSrc = "/CloudWallpaper.jpeg", TargetDate = "2000-01-01T00:00:00", DirectionText1 = '', DirectionText2 = '', DirectionBackgroundColor = '#FFFFFF', MapsLink = '', HourText = '', ConfimationText = '', ConfirmationBackgroundColor = '#FFFFFF', WhatsappNumber = '', WhatsappMessage = '', ConfirmationButtonBackgroundColor = '#FFFFFF', ConfirmationHoverButtonBg = '#FFFFFF', ConfirmationButtonTextColor = '#000000', ConfirmationHoverButtonTextColor = '#FFFFFF' } = Astro.props;
 const charCount = HeroText1.length;
 ---
 
@@ -133,7 +140,7 @@ const charCount = HeroText1.length;
 	</body>
 </html>
 
-<style define:vars={{ PositionFocus: Astro.props.PositionFocus, FirstColor: Astro.props.FirstColor, SecondColor: Astro.props.SecondColor, ThirdColor: Astro.props.ThirdColor, MusicTextColor: Astro.props.MusicTextColor, MusicSpanColor: Astro.props.MusicSpanColor, BackgroundTimerSrc:`url(${BackgroundTimerSrc})` }}>
+<style define:vars={{ PositionFocus: Astro.props.PositionFocus, FirstColor: Astro.props.FirstColor, SecondColor: Astro.props.SecondColor, ThirdColor: Astro.props.ThirdColor, MusicTextColor: Astro.props.MusicTextColor, MusicSpanColor: Astro.props.MusicSpanColor, BackgroundTimerSrc:`url(${BackgroundTimerSrc})`, DirectionBackgroundColor: Astro.props.DirectionBackgroundColor, ConfirmationBackgroundColor: Astro.props.ConfirmationBackgroundColor, ConfirmationButtonBackgroundColor: Astro.props.ConfirmationButtonBackgroundColor, ConfirmationHoverButtonBg: Astro.props.ConfirmationHoverButtonBg, ConfirmationButtonTextColor: Astro.props.ConfirmationButtonTextColor, ConfirmationHoverButtonTextColor: Astro.props.ConfirmationHoverButtonTextColor }}>
 	html,
 	body {
 		margin: 0;
@@ -308,7 +315,7 @@ const charCount = HeroText1.length;
 	font-weight: lighter;
 	text-align: center;
 	color: #ffffff;
-	background-color: var(--FirstColor);
+	background-color: var(--DirectionBackgroundColor);
 	display: flex;
 	flex-direction: column;
 	padding-top: 40%;
@@ -369,7 +376,7 @@ const charCount = HeroText1.length;
 	.confirmar_asistencia{
 	text-align: center;
 	color: var(--MusicTextColor);
-	background-color: var(--ThirdColor);
+	background-color: var(--ConfirmationBackgroundColor);
 	padding-top: 20%;
 	padding-bottom: 20%;
 	}
@@ -395,8 +402,8 @@ const charCount = HeroText1.length;
 	}
 
 	.Whatsapp_button {
-	background-color:  var(--FirstColor);
-	color: var(--MusicTextColor);
+	background-color:  var(--ConfirmationButtonBackgroundColor);
+	color: var(--ConfirmationButtonTextColor);
 	border: solid 2px #ffffff;
 	border-radius: 0px;
 	padding: 18px 36px;
@@ -414,8 +421,8 @@ const charCount = HeroText1.length;
 	}
 
 	.Whatsapp_button:hover {
-	color: #ffffff;
-	background-color: var(--ThirdColor);
+	color: var(--ConfirmationHoverButtonTextColor);
+	background-color: var(--ConfirmationHoverButtonBg);
 	border: 2px solid rgb(255, 255, 255);
 	border-radius: 0px;
 	}
