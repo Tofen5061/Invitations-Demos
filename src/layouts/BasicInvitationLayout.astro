@@ -43,6 +43,7 @@ const charCount = HeroText1.length;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
+		<meta name="color-scheme" content="only light">
 		<title>{Title}</title>
 	</head>
 	<body>
@@ -134,6 +135,18 @@ const charCount = HeroText1.length;
 </html>
 
 <style define:vars={{ PositionFocus: Astro.props.PositionFocus, FirstColor: Astro.props.FirstColor, SecondColor: Astro.props.SecondColor, ThirdColor: Astro.props.ThirdColor, MusicTextColor: Astro.props.MusicTextColor, MusicSpanColor: Astro.props.MusicSpanColor, BackgroundTimerSrc:`url(${BackgroundTimerSrc})` }}>
+	
+	:root {
+  		color-scheme: only light;
+	}
+
+	html, body {
+	/* Forzamos a que siempre use los colores de tus variables */
+	background-color: var(--SecondColor) !important; 
+	color: #000000; /* O el color de texto base que prefieras */
+	}
+		
+	
 	html,
 	body {
 		margin: 0;
@@ -426,9 +439,13 @@ const charCount = HeroText1.length;
 
 
 
-
-
-
+	/* Esto evita que el navegador intente 'adivinar' colores oscuros */
+	@media (prefers-color-scheme: dark) {
+  		html {
+    		/* Si el usuario tiene modo oscuro, le decimos que no haga nada */
+    		filter: none !important;
+  		}
+	}
 
 	@media (min-width: 768px) {
 
