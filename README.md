@@ -1,46 +1,31 @@
-# Astro Starter Kit: Basics
+# Astro Dynamic Event Engine 🚀
 
-```sh
-npm create astro@latest -- --template basics
-```
+A modular web system built with **Astro** and **TypeScript** to generate interactive event invitations through structured data injection.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🎯 Project Overview
+This project uses a template-based architecture. By separating the visual logic from the event data, I can deploy multiple unique invitations using a single core layout. 
 
-## 🚀 Project Structure
+## 🛠 Tech Stack
+- **Framework:** Astro 5.0
+- **Language:** TypeScript (Type-safe props)
+- **Styling:** CSS3 with Dynamic Variables (`define:vars`)
+- **Animations:** Native Scroll-Driven Animations
 
-Inside of your Astro project, you'll see the following folders and files:
+## ✨ Key Technical Features
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+### 1. Structured Data Management
+The system uses a TypeScript interface to manage 30+ customization points. This ensures that every invitation has all required data (colors, dates, links) before building, preventing runtime errors.
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+### 2. High-Performance CSS
+- **Dynamic Variables:** Uses Astro's `define:vars` to pass TypeScript values directly into CSS, allowing for custom themes without extra JavaScript.
+- **Responsive Logic:** Includes a `clamp()` based scaling system that adjusts typography based on the length of the guest's name (`charCount`).
+- **Scroll Effects:** High-performance animations using `animation-timeline`, reducing the need for heavy animation libraries.
 
-## 🧞 Commands
+### 3. User Experience
+- Integrated WhatsApp API for RSVP.
+- Optimized for mobile devices (Mobile-first).
+- Dynamic countdown timer logic.
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 📂 Project Structure
+- `/src/layouts/`: Core logic and styling.
+- `/src/pages/`: Individual event data and implementation.
