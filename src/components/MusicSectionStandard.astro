@@ -1,0 +1,113 @@
+---
+// SeccionMusica.astro
+const { 
+  FotoMusica = "/ParejaMusica.webp", 
+  AudioUrl = "/CancionBoda.mp3",
+  TextoMusica = "Nuestra Canción"
+} = Astro.props;
+---
+
+<section id="SeccionMusica" class="flex flex-col items-center p-10 bg-white w-full max-w-lg mx-auto">
+  
+  <div id="ContenedorFotoMusica" class="w-full mb-8 overflow-hidden shadow-sm rounded-sm">
+      <img src={FotoMusica} alt="Nuestra música" class="w-full aspect-square object-cover" />
+  </div>
+
+  <h3 id="TextoInspirador" class="font-DancingScript text-4xl text-gray-800 mb-6 text-center">
+    {TextoMusica}
+  </h3>
+
+  <div id="ReproductorCustom" class="w-full flex flex-col items-center gap-6">
+    
+    <audio id="AudioElemento" preload="none">
+        <source src={AudioUrl} type="audio/mpeg" />
+    </audio>
+
+    <button id="BotonReproduccion" class="w-20 h-20 bg-[#556b2f] rounded-full flex items-center justify-center text-white shadow-md hover:bg-[#4a5d28] transition-all active:scale-90">
+      <svg id="IconoPlay" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 fill-current" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      <svg id="IconoPause" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 fill-current hidden" viewBox="0 0 24 24">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+      </svg>
+    </button>
+
+    <div id="ContenedorProgreso" class="w-full space-y-2">
+        <div id="BarraProgresoBase" class="relative w-full h-1 bg-gray-100 rounded-full cursor-pointer">
+            <div id="BarraProgresoActiva" class="absolute top-0 left-0 h-full bg-[#556b2f] w-0 pointer-events-none"></div>
+        </div>
+        
+        <div class="flex justify-between text-[10px] text-gray-400 font-sans tracking-[0.2em] uppercase">
+            <span id="TiempoActual">0:00</span>
+            <span id="TiempoTotal">0:00</span>
+        </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<script>
+  // Selección de elementos usando UpperCamelCase
+  const AudioElemento = document.getElementById('AudioElemento') as HTMLAudioElement;
+  const BotonReproduccion = document.getElementById('BotonReproduccion');
+  const IconoPlay = document.getElementById('IconoPlay');
+  const IconoPause = document.getElementById('IconoPause');
+  const BarraProgresoActiva = document.getElementById('BarraProgresoActiva');
+  const BarraProgresoBase = document.getElementById('BarraProgresoBase');
+  const TiempoActual = document.getElementById('TiempoActual');
+  const TiempoTotal = document.getElementById('TiempoTotal');
+
+  // Función para alternar iconos
+  const AlternarEstadoIconos = (isPaused: boolean) => {
+    if (isPaused) {
+      IconoPlay?.classList.remove('hidden');
+      IconoPause?.classList.add('hidden');
+    } else {
+      IconoPlay?.classList.add('hidden');
+      IconoPause?.classList.remove('hidden');
+    }
+  };
+
+  // 1. Click en el botón de Play/Pause
+  BotonReproduccion?.addEventListener('click', () => {
+    if (AudioElemento.paused) {
+      AudioElemento.play();
+      AlternarEstadoIconos(false);
+    } else {
+      AudioElemento.pause();
+      AlternarEstadoIconos(true);
+    }
+  });
+
+  // 2. Actualizar la barra mientras suena
+  AudioElemento.addEventListener('timeupdate', () => {
+    const Porcentaje = (AudioElemento.currentTime / AudioElemento.duration) * 100;
+    if (BarraProgresoActiva) BarraProgresoActiva.style.width = `${Porcentaje}%`;
+
+    // Formatear tiempo (0:00)
+    const Minutos = Math.floor(AudioElemento.currentTime / 60);
+    const Segundos = Math.floor(AudioElemento.currentTime % 60);
+    if (TiempoActual) TiempoActual.textContent = `${Minutos}:${Segundos.toString().padStart(2, '0')}`;
+  });
+
+  // 3. Cargar duración total cuando el archivo esté listo
+  AudioElemento.addEventListener('loadedmetadata', () => {
+    const Minutos = Math.floor(AudioElemento.duration / 60);
+    const Segundos = Math.floor(AudioElemento.duration % 60);
+    if (TiempoTotal) TiempoTotal.textContent = `${Minutos}:${Segundos.toString().padStart(2, '0')}`;
+  });
+
+  // 4. Buscar en la barra (Click para saltar a un tiempo)
+  BarraProgresoBase?.addEventListener('click', (e) => {
+    const Rect = BarraProgresoBase.getBoundingClientRect();
+    const PosicionX = (e as MouseEvent).clientX - Rect.left;
+    const AnchoTotal = Rect.width;
+    const NuevoTiempo = (PosicionX / AnchoTotal) * AudioElemento.duration;
+    AudioElemento.currentTime = NuevoTiempo;
+  });
+
+  // 5. Al terminar la canción
+  AudioElemento.addEventListener('ended', () => AlternarEstadoIconos(true));
+</script>

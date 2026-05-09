@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  /* Esto permite usar perspective en Tailwind v4 */
+  --perspective-1000: 1000px;
+  --font-DancingScript: 'Dancing Script', cursive;
+}
+
+.perspective {
+  perspective: var(--perspective-1000);
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
