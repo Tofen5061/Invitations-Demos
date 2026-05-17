@@ -1,7 +1,6 @@
 ---
 // SeccionMusica.astro
 const { 
-  FotoMusica = "/ParejaMusica.webp", 
   AudioUrl = "/CancionBoda.mp3",
   TextoMusica = "Nuestra Canción"
 } = Astro.props;
@@ -9,11 +8,7 @@ const {
 
 <section id="SeccionMusica" class="flex flex-col items-center p-10 bg-white w-full max-w-lg mx-auto">
   
-  <div id="ContenedorFotoMusica" class="w-full mb-8 overflow-hidden shadow-sm rounded-sm">
-      <img src={FotoMusica} alt="Nuestra música" class="w-full aspect-square object-cover" />
-  </div>
-
-  <h3 id="TextoInspirador" class="font-DancingScript text-4xl text-gray-800 mb-6 text-center">
+  <h3 id="TextoInspirador" class="font-DancingScript text-4xl text-gray-800 mb-8 text-center">
     {TextoMusica}
   </h3>
 
@@ -46,8 +41,6 @@ const {
   </div>
 </section>
 
-
-
 <script>
   // Selección de elementos usando UpperCamelCase
   const AudioElemento = document.getElementById('AudioElemento') as HTMLAudioElement;
@@ -59,7 +52,6 @@ const {
   const TiempoActual = document.getElementById('TiempoActual');
   const TiempoTotal = document.getElementById('TiempoTotal');
 
-  // Función para alternar iconos
   const AlternarEstadoIconos = (isPaused: boolean) => {
     if (isPaused) {
       IconoPlay?.classList.remove('hidden');
@@ -70,7 +62,6 @@ const {
     }
   };
 
-  // 1. Click en el botón de Play/Pause
   BotonReproduccion?.addEventListener('click', () => {
     if (AudioElemento.paused) {
       AudioElemento.play();
@@ -81,25 +72,21 @@ const {
     }
   });
 
-  // 2. Actualizar la barra mientras suena
   AudioElemento.addEventListener('timeupdate', () => {
     const Porcentaje = (AudioElemento.currentTime / AudioElemento.duration) * 100;
     if (BarraProgresoActiva) BarraProgresoActiva.style.width = `${Porcentaje}%`;
 
-    // Formatear tiempo (0:00)
     const Minutos = Math.floor(AudioElemento.currentTime / 60);
     const Segundos = Math.floor(AudioElemento.currentTime % 60);
     if (TiempoActual) TiempoActual.textContent = `${Minutos}:${Segundos.toString().padStart(2, '0')}`;
   });
 
-  // 3. Cargar duración total cuando el archivo esté listo
   AudioElemento.addEventListener('loadedmetadata', () => {
     const Minutos = Math.floor(AudioElemento.duration / 60);
     const Segundos = Math.floor(AudioElemento.duration % 60);
     if (TiempoTotal) TiempoTotal.textContent = `${Minutos}:${Segundos.toString().padStart(2, '0')}`;
   });
 
-  // 4. Buscar en la barra (Click para saltar a un tiempo)
   BarraProgresoBase?.addEventListener('click', (e) => {
     const Rect = BarraProgresoBase.getBoundingClientRect();
     const PosicionX = (e as MouseEvent).clientX - Rect.left;
@@ -108,6 +95,5 @@ const {
     AudioElemento.currentTime = NuevoTiempo;
   });
 
-  // 5. Al terminar la canción
   AudioElemento.addEventListener('ended', () => AlternarEstadoIconos(true));
 </script>
